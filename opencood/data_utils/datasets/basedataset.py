@@ -21,6 +21,24 @@ from opencood.utils.pcd_utils import downsample_lidar_minimum
 from opencood.utils.transformation_utils import x1_to_x2
 
 
+# sensor corruption
+def gaussian_noise(pointcloud, severity):
+    N, C = pointcloud.shape  # N*3
+    c = [0.02, 0.04, 0.06, 0.08, 0.10][severity - 1]
+    jitter = np.random.normal(size=(N, C)) * c
+    new_pc = (pointcloud + jitter).astype('float32')
+    return new_pc
+
+
+# weather corruption
+def scene_glare_noise(pointcloud, severity):
+    N, C = pointcloud.shape
+    c = [int(0.010 * N), int(0.020 * N), int(0.030 * N), int(0.040 * N), int(0.050 * N)][severity - 1]
+    index = np.random.choice(N, c, replace=False)
+    pointcloud[index] += np.random.normal(size=(c, C)) * 2.0
+    return pointcloud
+
+
 class BaseDataset(Dataset):
     """
     Base dataset for all kinds of fusion. Mainly used to initialize the
@@ -109,7 +127,7 @@ class BaseDataset(Dataset):
         else:
             root_dir = params['validate_dir']
 
-        if 'train_params' not in params or\
+        if 'train_params' not in params or \
                 'max_cav' not in params['train_params']:
             self.max_cav = 7
         else:
@@ -258,8 +276,18 @@ class BaseDataset(Dataset):
                                                        timestamp_key,
                                                        timestamp_key_delay,
                                                        cur_ego_pose_flag)
+            # perfect setting
             data[cav_id]['lidar_np'] = \
                 pcd_utils.pcd_to_np(cav_content[timestamp_key_delay]['lidar'])
+
+            # weather corruption
+            # data[cav_id]['lidar_np'] = \
+            #     scene_glare_noise(pcd_utils.pcd_to_np(cav_content[timestamp_key_delay]['lidar']), 1)
+            
+            # sensor corruption
+            # data[cav_id]['lidar_np'] = \
+            #     gaussian_noise(pcd_utils.pcd_to_np(cav_content[timestamp_key_delay]['lidar']), 5)
+
         return data
 
     @staticmethod
