@@ -283,7 +283,7 @@ class BaseDataset(Dataset):
             # weather corruption
             # data[cav_id]['lidar_np'] = \
             #     scene_glare_noise(pcd_utils.pcd_to_np(cav_content[timestamp_key_delay]['lidar']), 1)
-            
+
             # sensor corruption
             # data[cav_id]['lidar_np'] = \
             #     gaussian_noise(pcd_utils.pcd_to_np(cav_content[timestamp_key_delay]['lidar']), 5)

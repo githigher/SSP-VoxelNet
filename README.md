@@ -1,4 +1,13 @@
-# Boosting V2X Cooperative Perception Under Common Corruptions with Transformer
+# SSP-VoxelNet
+
+​	The official implementation of the paper Boosting V2X Cooperative Perception Under Common Corruptions with Transformer.
+
+<p align="center">
+<img src="images/intersection.gif" width="600" alt="" class="img-responsive"><br>
+    Visualisation of the intersection under common corruptions.<br>
+<img src="images/corridor.gif" width="600"  alt="" class="img-responsive"><br>
+    Visualisation of the corridor under common corruptions.
+</p>
 
 ## Abstract
 
