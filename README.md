@@ -98,4 +98,4 @@ In the download link, "url1" denotes the optimal model under weather corruption,
 
 ## Acknowledgement
 
-This project is impossible without these excellent codebases [OpenCOOD](This project is impossible without these excellent codebases) and [3D_Corruptions_AD](https://github.com/thu-ml/3D_Corruptions_AD).
+This project is impossible without these excellent codebases [OpenCOOD](https://github.com/DerrickXuNu/OpenCOOD) and [3D_Corruptions_AD](https://github.com/thu-ml/3D_Corruptions_AD).
