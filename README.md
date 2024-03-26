@@ -1,7 +1,5 @@
 # SSP-VoxelNet
 
-
-
 The official implementation of the paper Boosting V2X Cooperative Perception Under Common Corruptions with Transformer.
 
 <p align="center">
