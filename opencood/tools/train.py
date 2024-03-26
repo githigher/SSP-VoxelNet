@@ -18,6 +18,11 @@ from opencood.tools import multi_gpu_utils
 from opencood.data_utils.datasets import build_dataset
 from opencood.tools import train_utils
 
+import random
+
+random.seed(25)
+torch.manual_seed(25)
+
 
 def train_parser():
     parser = argparse.ArgumentParser(description="synthetic data generation")
@@ -163,7 +168,6 @@ def main():
                     final_loss = criterion(ouput_dict,
                                            batch_data['ego']['label_dict'])
 
-
             criterion.logging(epoch, i, len(train_loader), writer, pbar=pbar2)
             pbar2.update(1)
 
@@ -180,7 +184,7 @@ def main():
 
         if epoch % hypes['train_params']['save_freq'] == 0:
             torch.save(model_without_ddp.state_dict(),
-                os.path.join(saved_path, 'net_epoch%d.pth' % (epoch + 1)))
+                       os.path.join(saved_path, 'net_epoch%d.pth' % (epoch + 1)))
 
         if epoch % hypes['train_params']['eval_freq'] == 0:
             valid_ave_loss = []
