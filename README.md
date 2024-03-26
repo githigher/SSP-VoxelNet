@@ -1,5 +1,7 @@
 # SSP-VoxelNet
 
+
+
 The official implementation of the paper Boosting V2X Cooperative Perception Under Common Corruptions with Transformer.
 
 <p align="center">
@@ -95,3 +97,7 @@ Arguments Explanation:
 |                  SSP-VoxelNet                   |         **0.864**         |         **0.854**         |         **0.780**         |        **0.881**         |        **0.872**         |        **0.792**         | [url](https://drive.google.com/drive/folders/1_SENTuM0YmMvfROOZg8xixgL-CyzYqye) |
 
 In the download link, "url1" denotes the optimal model under weather corruption, "url2" denotes the optimal model under sensor corruption, and "url" denotes the optimal model under both corruptions.
+
+## Acknowledgement
+
+This project is impossible without these excellent codebases [OpenCOOD](This project is impossible without these excellent codebases) and [3D_Corruptions_AD](https://github.com/thu-ml/3D_Corruptions_AD).
