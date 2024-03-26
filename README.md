@@ -14,12 +14,63 @@ The official implementation of the paper Boosting V2X Cooperative Perception Und
 <p align="center">
 <img src="images/sspvoxelnet.jpg" width="700" alt="" class="img-responsive">
 </p>
-
 In the realm of vehicle-to-everything (V2X) technology, cooperative perception holds immense promise for enhancing road safety and traffic efficiency. However, the accurate interpretation of shared sensory data in dynamic and complex traffic scenarios remains a significant challenge, particularly under common corruptions such as adverse weather conditions and sensor failures. To this end, we propose a robust V2X perception framework based on the VoxelNet backbone to address these challenges. Our contributions manifest in two key facets. Firstly, we propose a **Sparse Spatial Pooling (SSP)** module, which leverages multiple parallel atrous convolutional layers to enlarge the receptive field. Secondly, we propose an attention model for feature fusion, rooted in the Transformer architecture, termed the **TriFocus Transformer**. This Transformer architecture encompasses self-attention, cross-attention, and criss-cross attention layers, with the primary objective of capturing interaction information across heterogeneous agents to bolster performance under common corruptions. We validate our approach using the V2XSet dataset. Comparative analysis against the state-of-the-art (SOTA) cooperative perception algorithm demonstrates a notable enhancement in average precision across both the perfect setting and common corruptions. For instance, at an IOU threshold of 0.7, the average precision demonstrates improvements ranging from 6.3% to 11.1%.
+
+## Getting Started
+
+### Data Preparation
+
+Please refer to [data introduction](https://opencood.readthedocs.io/en/latest/md_files/data_intro.html#v2xset) to prepare V2XSet.
+
+### Installation
+
+Please refer to [installation guide](https://opencood.readthedocs.io/en/latest/md_files/installation.html) to install OpenCOOD.
+
+ ### Train the Model
+
+There are three settings in basedataset.py, corresponding to **perfect setting**, **weather corruption** and **sensor corruption**.
+
+```python
+def retrieve_base_data(self, idx, cur_ego_pose_flag=True):
+	......
+	# perfect setting
+	data[cav_id]['lidar_np'] = \
+                pcd_utils.pcd_to_np(cav_content[timestamp_key_delay]['lidar'])
+    
+    # weather corruption
+    data[cav_id]['lidar_np'] = \
+                scene_glare_noise(pcd_utils.pcd_to_np(cav_content[timestamp_key_delay]['lidar']), 1)
+                
+    # sensor corruption
+   	data[cav_id]['lidar_np'] = \
+                gaussian_noise(pcd_utils.pcd_to_np(cav_content[timestamp_key_delay]['lidar']), 5)
+```
+
+We set the compression rate to 32, then trained directly under the **perfect setting** without fine-tuning. We used three GPUs at the same time for one training session, running one batch size per graphics card. To train the model, run the following command.
+
+```
+CUDA_VISIBLE_DEVICES=1,2,3 python -m torch.distributed.launch --nproc_per_node=3 --master_port='29501' --use_env opencood/tools/train.py --hypes_yaml opencood/hypes_yaml/voxelnet_ssp.yaml
+```
+
+### Test the Model
+
+We tested under the **perfect setting** and **common corruptions**. First you need to make sure that the settings in basedataset.py are correct, then put the config.yaml and the model file in the same folder, and finally run the following code for testing.
+
+```
+python opencood/tools/inference.py --model_dir ${CHECKPOINT_FOLDER} --fusion_method ${FUSION_STRATEGY} [--save_npy]
+```
+
+Arguments Explanation:
+
++ `model_dir`: the path to your saved model.
+
++ `fusion_method`: indicate the fusion strategy, currently support 'early', 'late', and 'intermediate'.
+
++ `save_npy`: whether to save prediction and gt result in npy_test file.
 
 ## Benchmark
 
-### Results of 3D Detection under the perfect setting
+### Results of 3D Detection under the Perfect Setting
 
 |                        Model                         |    Source    |  AP@0.5   |  AP@0.7   |                        Download Link                         |
 | :--------------------------------------------------: | :----------: | :-------: | :-------: | :----------------------------------------------------------: |
@@ -32,7 +83,7 @@ In the realm of vehicle-to-everything (V2X) technology, cooperative perception h
 |   [V2X-ViT](https://arxiv.org/pdf/2203.10638.pdf)    |   ECCV2022   |   0.882   |   0.712   |                                                              |
 |                     SSP-VoxelNet                     |              | **0.888** | **0.823** | [url](https://drive.google.com/drive/folders/1_SENTuM0YmMvfROOZg8xixgL-CyzYqye) |
 
-### Results of 3D Detection under common corruptions
+### Results of 3D Detection under Common Corruptions
 
 |                      Model                      | Weather Corruption AP@0.3 | Weather Corruption AP@0.5 | Weather Corruption AP@0.7 | Sensor Corruption AP@0.3 | Sensor Corruption AP@0.5 | Sensor Corruption AP@0.7 |                        Download Link                         |
 | :---------------------------------------------: | :-----------------------: | :-----------------------: | :-----------------------: | :----------------------: | :----------------------: | :----------------------: | :----------------------------------------------------------: |
