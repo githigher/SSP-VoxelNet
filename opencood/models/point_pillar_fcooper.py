@@ -96,7 +96,10 @@ class PointPillarFCooper(nn.Module):
             spatial_features_2d = self.shrink_conv(spatial_features_2d)
         # compressor
         if self.compression:
-            spatial_features_2d = self.naive_compressor(spatial_features_2d)
+            ego_feature = spatial_features_2d[0:1]
+            other_feature = spatial_features_2d[1:]
+            other_compress_feature = self.naive_compressor(other_feature)
+            spatial_features_2d = torch.cat([ego_feature, other_compress_feature], 0)
 
         fused_feature = self.fusion_net(spatial_features_2d, record_len)
 
