@@ -1,6 +1,6 @@
 # SSP-VoxelNet
 
-​	The official implementation of the paper Boosting V2X Cooperative Perception Under Common Corruptions with Transformer.
+The official implementation of the paper Boosting V2X Cooperative Perception Under Common Corruptions with Transformer.
 
 <p align="center">
 <img src="images/intersection.gif" width="600" alt="" class="img-responsive"><br>
@@ -15,7 +15,7 @@
 <img src="images/sspvoxelnet.jpg" width="700" alt="" class="img-responsive">
 </p>
 
-​	In the realm of vehicle-to-everything (V2X) technology, cooperative perception holds immense promise for enhancing road safety and traffic efficiency. However, the accurate interpretation of shared sensory data in dynamic and complex traffic scenarios remains a significant challenge, particularly under common corruptions such as adverse weather conditions and sensor failures. To this end, we propose a robust V2X perception framework based on the VoxelNet backbone to address these challenges. Our contributions manifest in two key facets. Firstly, we propose a **Sparse Spatial Pooling (SSP)** module, which leverages multiple parallel atrous convolutional layers to enlarge the receptive field. Secondly, we propose an attention model for feature fusion, rooted in the Transformer architecture, termed the **TriFocus Transformer**. This Transformer architecture encompasses self-attention, cross-attention, and criss-cross attention layers, with the primary objective of capturing interaction information across heterogeneous agents to bolster performance under common corruptions. We validate our approach using the V2XSet dataset. Comparative analysis against the state-of-the-art (SOTA) cooperative perception algorithm demonstrates a notable enhancement in average precision across both the perfect setting and common corruptions. For instance, at an IOU threshold of 0.7, the average precision demonstrates improvements ranging from 6.3% to 11.1%.
+In the realm of vehicle-to-everything (V2X) technology, cooperative perception holds immense promise for enhancing road safety and traffic efficiency. However, the accurate interpretation of shared sensory data in dynamic and complex traffic scenarios remains a significant challenge, particularly under common corruptions such as adverse weather conditions and sensor failures. To this end, we propose a robust V2X perception framework based on the VoxelNet backbone to address these challenges. Our contributions manifest in two key facets. Firstly, we propose a **Sparse Spatial Pooling (SSP)** module, which leverages multiple parallel atrous convolutional layers to enlarge the receptive field. Secondly, we propose an attention model for feature fusion, rooted in the Transformer architecture, termed the **TriFocus Transformer**. This Transformer architecture encompasses self-attention, cross-attention, and criss-cross attention layers, with the primary objective of capturing interaction information across heterogeneous agents to bolster performance under common corruptions. We validate our approach using the V2XSet dataset. Comparative analysis against the state-of-the-art (SOTA) cooperative perception algorithm demonstrates a notable enhancement in average precision across both the perfect setting and common corruptions. For instance, at an IOU threshold of 0.7, the average precision demonstrates improvements ranging from 6.3% to 11.1%.
 
 ## Benchmark
 
@@ -43,4 +43,4 @@
 |   [CoAlign](https://arxiv.org/abs/2211.07214)   |           0.854           |           0.831           |           0.706           |          0.863           |          0.843           |          0.729           | [url](https://drive.google.com/drive/folders/16Lu7lpUcgfOMVyV1XNGv4sxGXqlj15r_?usp=drive_link) |
 |                  SSP-VoxelNet                   |         **0.864**         |         **0.854**         |         **0.780**         |        **0.881**         |        **0.872**         |        **0.792**         | [url](https://drive.google.com/drive/folders/1_SENTuM0YmMvfROOZg8xixgL-CyzYqye) |
 
-​	In the download link, "url1" denotes the optimal model under weather corruption, "url2" denotes the optimal model under sensor corruption, and "url" denotes the optimal model under both corruptions.
+In the download link, "url1" denotes the optimal model under weather corruption, "url2" denotes the optimal model under sensor corruption, and "url" denotes the optimal model under both corruptions.
