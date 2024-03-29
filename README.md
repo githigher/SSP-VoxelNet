@@ -32,9 +32,9 @@ There are three settings in basedataset.py, corresponding to **perfect setting**
 
 ```python
 def retrieve_base_data(self, idx, cur_ego_pose_flag=True):
-	......
-	# perfect setting
-	data[cav_id]['lidar_np'] = \
+    ......
+    # perfect setting
+    data[cav_id]['lidar_np'] = \
                 pcd_utils.pcd_to_np(cav_content[timestamp_key_delay]['lidar'])
     
     # weather corruption
